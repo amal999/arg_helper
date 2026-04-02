@@ -1,0 +1,26 @@
+[
+  {
+    "topic": "climate",
+    "lang": "zh",
+    "source": "IPCC 第六次评估报告 (2021)",
+    "text": "全球平均气温在过去一百年中显著上升，多个独立观测数据一致。"
+  },
+  {
+    "topic": "climate",
+    "lang": "en",
+    "source": "NOAA",
+    "text": "Global average temperatures have increased significantly over the past century based on multiple independent datasets."
+  },
+  {
+    "topic": "vaccines",
+    "lang": "zh",
+    "source": "WHO",
+    "text": "大多数疫苗经过严格临床试验，能够显著降低相关疾病的发病率与死亡率。"
+  },
+  {
+    "topic": "work",
+    "lang": "zh",
+    "source": "",
+    "text": "明确事实与时间线比情绪化指责更有说服力。"
+  }
+]

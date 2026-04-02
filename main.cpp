@@ -139,7 +139,7 @@ vector<string> detect_issues(const string &s) {
         for (auto &w : INSULTS_ZH)  if (s.find(w) != string::npos) { issues.push_back("包含侮辱性词汇（例如：" + w + "），可能激化冲突。"); break; }
     } else {
         if (contains_any_ci(s, EXTREME_EN)) issues.push_back("Contains absolute/extreme wording (e.g. always/never).");
-        if (contains_any_ci(s, INSULTS_EN))  issues.push_back("Contains insulting language (e.g. stupid/idiot.");
+        if (contains_any_ci(s, INSULTS_EN))  issues.push_back("Contains insulting language (e.g. stupid/idiot).");
     }
     if (!is_question(s)) {
         bool has_reason = false;
@@ -182,16 +182,16 @@ vector<pair<string,string>> generate_responses(const string &topic, const string
 
     // 1. 认可 + 澄清
     if (zh) {
-        out.emplace_back("认可并澄清", "我理解你的观点：\"" + input + "\"。能否再具体说一下你最关心的点是什么？比如时间、范围或具体例子。);
+        out.emplace_back("认可并澄清", "我理解你的观点：“ + input + "”。能否再具体说一下你最关心的点是什么？比如时间、范围或具体例子。");
     } else {
-        out.emplace_back("Acknowledge + Clarify", "I hear you: \"" + input + "\". Could you clarify which part you are most concerned about (timeframe, scope, examples)?);
+        out.emplace_back("Acknowledge + Clarify", "I hear you: \" + input + \"");
     }
 
     // 2. 要求证据
     if (zh) {
-        out.emplace_back("要求证据", "你提到\"" + input + "\"，能否提供具体来源或数据来支撑？例如研究、统计或者实例。);
+        out.emplace_back("要求证据", "你提到“ + input + "，能否提供具体来源或数据来支撑？例如研究、统计或者实例。");
     } else {
-        out.emplace_back("Ask for evidence", "You mentioned \"" + input + "\"—could you share sources or data supporting that claim (studies, stats, examples)?);
+        out.emplace_back("Ask for evidence", "You mentioned \" + input + \"");
     }
 
     // 3. 本地事实补充
@@ -210,12 +210,12 @@ vector<pair<string,string>> generate_responses(const string &topic, const string
             out.emplace_back("Facts / Counterpoint", body);
         }
     } else {
-        if (zh) out.emplace_back("请求来源或协作", "我这边没有关于该话题的本地资料。你可以提供来源，或者我可以帮你整理可查证的信息。);
+        if (zh) out.emplace_back("请求来源或协作", "我这边没有关于该话题的本地资料。你可以提供来源，或者我可以帮你整理可查证的信息。");
         else out.emplace_back("Request sources / collaborate", "I don't have local facts for that topic. You can share sources or I can help gather verifiable information.");
     }
 
     // 4. 指出潜在偏误
-    if (zh) out.emplace_back("指出潜在偏误（礼貌）", "你的结论可能存在过度概括或以偏概全的风险。我们可以先约定样本或范围，再讨论具体结论。);
+    if (zh) out.emplace_back("指出潜在偏误（礼貌）", "你的结论可能存在过度概括或以偏概全的风险。我们可以先约定样本或范围，再讨论具体结论。");
     else out.emplace_back("Point out potential bias (polite)", "Your conclusion might involve overgeneralization. Let's define sample/range before drawing conclusions.");
 
     // 5. 缓和建议（若情绪化/侮辱）
@@ -223,12 +223,12 @@ vector<pair<string,string>> generate_responses(const string &topic, const string
     for (auto &w : INSULTS_ZH) if (input.find(w)!=string::npos) emo = true;
     for (auto &w : INSULTS_EN) if (contains_any_ci(input, {w})) emo = true;
     if (emo || input.find("!")!=string::npos || input.find("！")!=string::npos) {
-        if (zh) out.emplace_back("缓和/重置对话", "现在情绪可能较为激动，建议先冷静一下。要不先把关键问题列出来，再逐条讨论？);
+        if (zh) out.emplace_back("缓和/重置对话", "现在情绪可能较为激动，建议先冷静一下。要不先把关键问题列出来，再逐条讨论？");
         else out.emplace_back("De-escalate / reset", "The tone seems heated. Maybe take a breath and list key points to discuss one by one?");
     }
 
     // 6. 反问法（Socratic）
-    if (zh) out.emplace_back("反问法（Socratic）", "你会如何证明你的结论？如果对方难以回答，说明结论需要更多证据。);
+    if (zh) out.emplace_back("反问法（Socratic）", "你会如何证明你的结论？如果对方难以回答，说明结论需要更多证据。");
     else out.emplace_back("Socratic question", "How would you prove your conclusion? If that's hard to answer, you may need more evidence.");
 
     return out;
@@ -254,6 +254,7 @@ bool copy_to_clipboard_windows(const string &s) {
     return false;
 #endif
 }
+
 bool copy_to_clipboard_unix(const string &s) {
 #ifndef _WIN32
     if (s.empty()) return false;
@@ -283,6 +284,7 @@ bool copy_to_clipboard_unix(const string &s) {
     return false;
 #endif
 }
+
 bool copy_to_clipboard(const string &s) {
 #ifdef _WIN32
     return copy_to_clipboard_windows(s);
@@ -301,6 +303,7 @@ void print_help() {
     cout << "  use n         复制第 n 条回应到剪贴板\n";
     cout << "  exit          退出\n";
 }
+
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
